@@ -19,8 +19,11 @@
             </figure>
             <h2 v-text="subject.title"></h2>
             <p v-text="subject.location"></p>
-            <p> Price: {{subject.price}} </p>
-            <p> Available Spaces: {{subject.availableSpaces}} </p>
+            <p> Price: AED {{subject.price}} </p>
+            <p> Available Spaces: {{subject.availableSpaces - cartItemCount}} </p>
+            <button v-on:click="addToCart">
+                Add to cart 
+            </button>
         </main>
     </div>
 
@@ -37,7 +40,18 @@
                     image: "science.png" ,
                     availableSpaces: 5
                 },
-            }
+                cart:[]
+            },
+            methods: {
+                addToCart: function () {
+                    this.cart.push(this.subject.id);
+                }
+            },
+            computed: {
+                cartItemCount: function () {
+                    return this.cart.length;
+                }
+            },
         });
     </script>
 </body>
