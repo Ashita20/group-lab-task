@@ -21,8 +21,12 @@
             <p v-text="subject.location"></p>
             <p> Price: AED {{subject.price}} </p>
             <p> Available Spaces: {{subject.availableSpaces - cartItemCount}} </p>
-            <button v-on:click="addToCart">
+            <button v-on:click="addToCart"
+                v-if="canAddToCart">
                 Add to cart 
+            </button>
+            <button disabled='disabled' v-else>
+                Add to cart
             </button>
         </main>
     </div>
@@ -50,6 +54,9 @@
             computed: {
                 cartItemCount: function () {
                     return this.cart.length;
+                },
+                canAddToCart: function () {
+                    return this.subject.availableSpaces > this.cartItemCount;
                 }
             },
         });
